@@ -57,8 +57,8 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   }
 }
 
-export default async function CharacterPage({ params }: { params: { id: string } }) {
-  const { id } = await params
+export default function CharacterPage({ params }: { params: { id: string } }) {
+  const { id } = params;
   return (
     <Suspense fallback={<CharacterSkeleton />}>
       <CharacterServer id={id} />
