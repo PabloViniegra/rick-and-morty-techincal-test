@@ -5,13 +5,13 @@ import GrillCardCharactersSkeleton from '@/components/shared/skeletons/GrillCard
 import HeroIntroDialog from '@/components/client/HeroIntroDialog'
 
 interface PageProps {
-  searchParams: Promise<{
+  searchParams: {
     page?: string
     name?: string
     status?: 'alive' | 'dead' | 'unknown'
     species?: string
     gender?: 'female' | 'male' | 'genderless' | 'unknown'
-  }>
+  }
 }
 
 export const dynamic = 'force-dynamic'
@@ -48,8 +48,8 @@ export const metadata: Metadata = {
   },
 }
 
-export default async function Home({ searchParams }: PageProps) {
-  const sp = await searchParams
+export default function Home({ searchParams }: PageProps) {
+  const sp = searchParams
   return (
     <main>
       <HeroIntroDialog />
