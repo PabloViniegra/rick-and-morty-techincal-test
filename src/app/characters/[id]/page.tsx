@@ -4,8 +4,11 @@ import CharacterServer from '@/components/server/CharacterServer'
 import CharacterSkeleton from '@/components/shared/skeletons/CharacterSkeleton'
 import { getCharacterById } from '@/lib/characters'
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-  const character = await getCharacterById(parseInt(params.id, 10)).catch(() => null)
+type Params = Promise<{ id: string }>
+
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+  const { id } = await params
+  const character = await getCharacterById(parseInt(id, 10)).catch(() => null)
 
   if (!character) {
     return {
@@ -57,8 +60,8 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   }
 }
 
-export default function CharacterPage({ params }: { params: { id: string } }) {
-  const { id } = params;
+export default async function CharacterPage({ params }: { params: Params }) {
+  const { id } = await params
   return (
     <Suspense fallback={<CharacterSkeleton />}>
       <CharacterServer id={id} />

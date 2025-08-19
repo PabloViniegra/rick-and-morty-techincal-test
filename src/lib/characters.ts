@@ -1,4 +1,10 @@
-import { ResponseCharacter, ResponseCharacterList } from '@/types'
+import {
+  DetailedEpisode,
+  DetailedEpisodeCharacterized,
+  DetailedLocation,
+  ResponseCharacter,
+  ResponseCharacterList,
+} from '@/types'
 
 const API_URL = process.env.NEXT_RICK_AND_MORTY_API_URL
 
@@ -80,4 +86,71 @@ export async function getCharacterById(id: number): Promise<ResponseCharacter> {
   }
 
   return response.json()
+}
+
+export async function getLocationFromCharacter(url: string): Promise<DetailedLocation> {
+  const response = await fetch(url, {
+    cache: 'no-store',
+  })
+
+  if (!response.ok) {
+    const text = await response.text().catch(() => '')
+    throw new Error(
+      `Failed to fetch character (${response.status}): ${text || response.statusText}`
+    )
+  }
+
+  return response.json()
+}
+
+export async function getEpisode(id: number): Promise<DetailedEpisodeCharacterized> {
+  if (!API_URL) {
+    throw new Error('NEXT_RICK_AND_MORTY_API_URL is not defined')
+  }
+
+  const url = `${API_URL}/episode/${id}`
+
+  const response = await fetch(url, {
+    cache: 'no-store',
+  })
+
+  if (!response.ok) {
+    const text = await response.text().catch(() => '')
+    throw new Error(
+      `Failed to fetch character (${response.status}): ${text || response.statusText}`
+    )
+  }
+
+  const episode = await response.json()
+
+  const characters = await Promise.all(
+    episode.characters.map((url: string) => fetch(url, { cache: 'no-store' }))
+  )
+  const charactersData = await Promise.all(characters.map(response => response.json()))
+
+  return { ...episode, characters_image: charactersData }
+}
+
+export async function getEpisodesFromCharacter(urls: string[]): Promise<DetailedEpisode[]> {
+  const responses = await Promise.all(urls.map(url => fetch(url, { cache: 'no-store' })))
+
+  const episodes = await Promise.all(responses.map(response => response.json()))
+
+  return episodes
+}
+
+export async function getSimpleCharactersFromEpisodes(
+  episodes: DetailedEpisode[]
+): Promise<DetailedEpisodeCharacterized[]> {
+  let result: DetailedEpisodeCharacterized[] = []
+
+  for (const episode of episodes) {
+    const characters = await Promise.all(
+      episode.characters.map(url => fetch(url, { cache: 'no-store' }))
+    )
+    const charactersData = await Promise.all(characters.map(response => response.json()))
+    result.push({ ...episode, characters_image: charactersData })
+  }
+
+  return result
 }
