@@ -1,11 +1,12 @@
 'use client'
 
 import { DetailedEpisodeCharacterized } from '@/types'
-import { Calendar, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { XIcon } from '@/components/ui/x'
+import { CalendarCheck2Icon } from '@/components/ui/calendar-check-2'
 
 interface EpisodeModalProps {
   episode: DetailedEpisodeCharacterized
@@ -28,7 +29,7 @@ export function EpisodeModal({ episode }: EpisodeModalProps) {
           className='absolute right-4 top-4 z-10 rounded-full p-1.5 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground'
           aria-label='Close'
         >
-          <X className='h-5 w-5' />
+          <XIcon size={20} />
         </button>
 
         <CardHeader className='border-b bg-muted/50 p-6'>
@@ -42,7 +43,7 @@ export function EpisodeModal({ episode }: EpisodeModalProps) {
                   {episode.episode}
                 </Badge>
                 <div className='flex items-center text-sm text-muted-foreground'>
-                  <Calendar className='mr-1 h-4 w-4' />
+                  <CalendarCheck2Icon size={14} className='mr-1' />
                   <span className='font-serif text-xs'>
                     {new Date(episode.air_date).toLocaleDateString()}
                   </span>

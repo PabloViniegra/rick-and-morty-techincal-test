@@ -2,7 +2,7 @@
 
 import { Character, DetailedLocation, DetailedEpisodeCharacterized } from '@/types'
 import Image from 'next/image'
-import { X } from 'lucide-react'
+import { XIcon } from '@/components/ui/x'
 import { useEffect } from 'react'
 import { GrillEpisodes } from '@/components/shared/GrillEpisodes'
 
@@ -189,7 +189,7 @@ export default function CharacterDetail({
           className='absolute right-4 top-4 rounded-full p-2 text-muted-foreground hover:bg-muted transition-colors z-10'
           aria-label='Cerrar modal'
         >
-          <X className='h-5 w-5' />
+          <XIcon size={20} />
         </button>
         {content}
       </div>
