@@ -74,9 +74,7 @@ export async function getCharacterById(id: number): Promise<ResponseCharacter> {
 
   const url = `${API_URL}/character/${id}`
 
-  const response = await fetch(url, {
-    cache: 'no-store',
-  })
+  const response = await fetch(url, { next: { revalidate: 60 } })
 
   if (!response.ok) {
     const text = await response.text().catch(() => '')
@@ -132,7 +130,7 @@ export async function getEpisode(id: number): Promise<DetailedEpisodeCharacteriz
 }
 
 export async function getEpisodesFromCharacter(urls: string[]): Promise<DetailedEpisode[]> {
-  const responses = await Promise.all(urls.map(url => fetch(url, { cache: 'no-store' })))
+  const responses = await Promise.all(urls.map(url => fetch(url, { cache: 'default' })))
 
   const episodes = await Promise.all(responses.map(response => response.json()))
 
@@ -142,7 +140,7 @@ export async function getEpisodesFromCharacter(urls: string[]): Promise<Detailed
 export async function getSimpleCharactersFromEpisodes(
   episodes: DetailedEpisode[]
 ): Promise<DetailedEpisodeCharacterized[]> {
-  let result: DetailedEpisodeCharacterized[] = []
+  const result: DetailedEpisodeCharacterized[] = []
 
   for (const episode of episodes) {
     const characters = await Promise.all(

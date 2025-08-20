@@ -2,28 +2,27 @@
 
 import * as React from 'react'
 import { useTheme } from 'next-themes'
-import { Laptop, Moon, Sun } from 'lucide-react'
+import { Moon, Sun } from 'lucide-react'
 import Image from 'next/image'
 import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select'
 import Link from 'next/link'
 import { GithubIcon } from '@/components/ui/github'
 import { LinkedinIcon } from '@/components/ui/linkedin'
 import { GalleryThumbnailsIcon } from '@/components/ui/gallery-thumbnails'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 
 function ThemeSelector() {
   const { theme, setTheme, resolvedTheme } = useTheme()
-  const current = (theme ?? resolvedTheme ?? 'system') as 'light' | 'dark' | 'system'
+  const current = (theme ?? resolvedTheme ?? 'dark') as 'light' | 'dark'
 
   const iconMap: Record<string, React.ReactNode> = {
     light: <Sun className='h-4 w-4' />,
     dark: <Moon className='h-4 w-4' />,
-    system: <Laptop className='h-4 w-4' />,
   }
 
   const themes = [
     { value: 'light', label: 'Light', icon: iconMap.light },
     { value: 'dark', label: 'Dark', icon: iconMap.dark },
-    { value: 'system', label: 'System', icon: iconMap.system },
   ]
 
   return (
@@ -70,33 +69,54 @@ export default function AppNavbar() {
         <div className='flex items-center gap-8'>
           <ThemeSelector />
           <nav className='flex items-center gap-2'>
-            <a
-              href='https://portfolio-pablo-viniegra.netlify.app/'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background p-2 text-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
-              aria-label='Portfolio'
-            >
-              <GalleryThumbnailsIcon size={16} />
-            </a>
-            <a
-              href='https://github.com/PabloViniegra/rick-and-morty-techincal-test'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background p-2 text-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
-              aria-label='GitHub'
-            >
-              <GithubIcon size={16} />
-            </a>
-            <a
-              href='https://www.linkedin.com/in/pablo-viniegra-picazo/'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background p-2 text-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
-              aria-label='LinkedIn'
-            >
-              <LinkedinIcon size={16} />
-            </a>
+            <Tooltip>
+              <TooltipTrigger>
+                <a
+                  href='https://portfolio-pablo-viniegra.netlify.app/'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background p-2 text-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
+                  aria-label='Portfolio'
+                >
+                  <GalleryThumbnailsIcon size={16} />
+                </a>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p className='font-sans text-xs font-medium'>Portfolio</p>
+              </TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger>
+                <a
+                  href='https://github.com/PabloViniegra/rick-and-morty-techincal-test'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background p-2 text-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
+                  aria-label='GitHub'
+                >
+                  <GithubIcon size={16} />
+                </a>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p className='font-sans text-xs font-medium'>GitHub</p>
+              </TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger>
+                <a
+                  href='https://www.linkedin.com/in/pablo-viniegra-picazo/'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background p-2 text-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
+                  aria-label='LinkedIn'
+                >
+                  <LinkedinIcon size={16} />
+                </a>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p className='font-sans text-xs font-medium'>LinkedIn</p>
+              </TooltipContent>
+            </Tooltip>
           </nav>
         </div>
       </div>

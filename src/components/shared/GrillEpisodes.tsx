@@ -77,7 +77,12 @@ export function GrillEpisodes({ episodes }: GrillEpisodesProps) {
                       <div className='flex flex-wrap gap-2'>
                         {episode.characters_image.slice(0, 5).map(character => (
                           <Avatar key={character.id} className='h-8 w-8 border border-border'>
-                            <AvatarImage src={character.image} alt={character.name} />
+                            <AvatarImage
+                              src={character.image}
+                              alt={character.name}
+                              width={40}
+                              height={40}
+                            />
                             <AvatarFallback className='text-xs'>
                               {character.name
                                 .split(' ')

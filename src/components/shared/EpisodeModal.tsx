@@ -69,7 +69,7 @@ export function EpisodeModal({ episode }: EpisodeModalProps) {
                 tabIndex={0}
               >
                 <Avatar className='h-16 w-16'>
-                  <AvatarImage src={character.image} alt={character.name} />
+                  <AvatarImage src={character.image} alt={character.name} width={40} height={40} />
                   <AvatarFallback>
                     {character.name
                       .split(' ')
