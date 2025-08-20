@@ -13,7 +13,15 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 
 function ThemeSelector() {
   const { theme, setTheme, resolvedTheme } = useTheme()
-  const current = (theme ?? resolvedTheme ?? 'dark') as 'light' | 'dark'
+
+  const raw = theme ?? resolvedTheme ?? 'dark'
+  const current = (
+    raw === 'light' || raw === 'dark'
+      ? raw
+      : resolvedTheme === 'light' || resolvedTheme === 'dark'
+      ? resolvedTheme
+      : 'dark'
+  ) as 'light' | 'dark'
 
   const iconMap: Record<string, React.ReactNode> = {
     light: <Sun className='h-4 w-4' />,

@@ -36,7 +36,6 @@ export default function GrillCardCharacters({ characters, className }: Props) {
           <h2 className='font-sans tracking-tight leading-relaxed text-xl sm:text-2xl font-extrabold text-foreground'>
             Characters
           </h2>
-          <p className='text-sm text-background font-serif'>Total: {characters.length}</p>
           <FilterPanel />
           <Search />
         </header>
