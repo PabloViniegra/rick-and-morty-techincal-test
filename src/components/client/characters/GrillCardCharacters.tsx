@@ -32,7 +32,7 @@ export default function GrillCardCharacters({ characters, className }: Props) {
   return (
     <section className={'w-full ' + (className ?? '')}>
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
-        <header className='mb-4 sm:mb-6 flex flex-row items-center justify-between mt-5'>
+        <header className='mb-4 sm:mb-6 flex flex-col gap-2 md:flex-row items-center justify-between mt-5'>
           <h2 className='font-sans tracking-tight leading-relaxed text-xl sm:text-2xl font-extrabold text-foreground'>
             Characters
           </h2>

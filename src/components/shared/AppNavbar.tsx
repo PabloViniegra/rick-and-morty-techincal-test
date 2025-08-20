@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { useTheme } from 'next-themes'
-import { Moon, Sun } from 'lucide-react'
+import { Moon, Sun, Menu } from 'lucide-react'
 import Image from 'next/image'
 import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select'
 import Link from 'next/link'
@@ -10,6 +10,7 @@ import { GithubIcon } from '@/components/ui/github'
 import { LinkedinIcon } from '@/components/ui/linkedin'
 import { GalleryThumbnailsIcon } from '@/components/ui/gallery-thumbnails'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 
 function ThemeSelector() {
   const { theme, setTheme, resolvedTheme } = useTheme()
@@ -74,7 +75,8 @@ export default function AppNavbar() {
             Rick & Morty
           </span>
         </Link>
-        <div className='flex items-center gap-8'>
+        {/* Desktop actions */}
+        <div className='hidden md:flex items-center gap-8'>
           <ThemeSelector />
           <nav className='flex items-center gap-2'>
             <Tooltip>
@@ -126,6 +128,65 @@ export default function AppNavbar() {
               </TooltipContent>
             </Tooltip>
           </nav>
+        </div>
+
+        {/* Mobile menu */}
+        <div className='md:hidden'>
+          <Dialog>
+            <DialogTrigger asChild>
+              <button
+                aria-label='Open menu'
+                className='inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background p-2 text-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
+              >
+                <Menu className='h-4 w-4' />
+              </button>
+            </DialogTrigger>
+            <DialogContent
+              showCloseButton
+              className='top-0 left-0 translate-x-0 translate-y-0 h-[100dvh] w-full max-w-none rounded-none p-6 sm:p-8'
+            >
+              <DialogTitle className='sr-only'>Menú</DialogTitle>
+              <div className='flex flex-col gap-6'>
+                <div className='flex items-center justify-between'>
+                  <span className='font-serif uppercase text-sm tracking-tight font-medium'>
+                    Rick & Morty
+                  </span>
+                </div>
+                <div className='border-t border-border pt-4'>
+                  <ThemeSelector />
+                </div>
+                <div className='flex items-center gap-3 pt-2'>
+                  <a
+                    href='https://portfolio-pablo-viniegra.netlify.app/'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background p-2 text-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
+                    aria-label='Portfolio'
+                  >
+                    <GalleryThumbnailsIcon size={16} />
+                  </a>
+                  <a
+                    href='https://github.com/PabloViniegra/rick-and-morty-techincal-test'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background p-2 text-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
+                    aria-label='GitHub'
+                  >
+                    <GithubIcon size={16} />
+                  </a>
+                  <a
+                    href='https://www.linkedin.com/in/pablo-viniegra-picazo/'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background p-2 text-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
+                    aria-label='LinkedIn'
+                  >
+                    <LinkedinIcon size={16} />
+                  </a>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
     </nav>
